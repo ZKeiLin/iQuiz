@@ -88,5 +88,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as? QuestionViewController
+        vc?.questions = list[indexPath.row].questions
+        self.navigationController?.pushViewController(vc!, animated: true)
+        
+    }
 }
+
 
