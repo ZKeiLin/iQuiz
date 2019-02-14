@@ -14,26 +14,7 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var questionText: UILabel!
     @IBOutlet weak var questionOptions: UITableView!
     
-    var questions : [Question] = [
-//        Question(
-//            text: "Who is Iron Man?",
-//            answer: 1,
-//            answers: [
-//                "Tony Stark",
-//                "Obadiah Stane",
-//                "A rock hit by Megadeth",
-//                "Nobody knows"
-//            ]),
-//        Question(
-//            text: "Who founded the X-Men?",
-//            answer: 2,
-//            answers: [
-//                "Tony Stark",
-//                "Professor X",
-//                "The X-Institute",
-//                "Erik Lensherr"
-//            ])
-    ]
+    var questions : [Question] = []
     var index = 0
 //    var option : [String] = []
 //    var correctAnswer = -1
@@ -54,13 +35,24 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
         return questions[index].answers.count
     }
     
+//    @IBOutlet weak var optionCell: NSLayoutConstraint!
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "questionOptions", for: indexPath)
-        cell.textLabel?.text = questions[index].answers[indexPath.row]
-        cell.textLabel?.textAlignment = .center
+        let cell = tableView.dequeueReusableCell(withIdentifier: "questionOptions", for: indexPath) as! AnswerOptionCell
+        cell.optionText?.text = questions[index].answers[indexPath.row]
+        cell.optionText?.textAlignment = .center
+//        cell.container.layer.cornerRadius = 20
+//        cell.container.layer.masksToBounds = false
+//         cell.container.layer.shadowColor = UIColor.black.cgColor
+//         cell.container.layer.shadowOffset = CGSize(width: 2, height: 4)
+//         cell.container.layer.shadowOpacity = 0.2
+//         cell.container.layer.shadowRadius = 10
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 60.0;//Choose your custom row height
+    }
     /*
     // MARK: - Navigation
 

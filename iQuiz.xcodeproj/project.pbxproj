@@ -14,6 +14,7 @@
 		2D310F66220EAAED00FA4109 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D310F65220EAAED00FA4109 /* Assets.xcassets */; };
 		2D310F69220EAAED00FA4109 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D310F67220EAAED00FA4109 /* LaunchScreen.storyboard */; };
 		2D5AAB5D2215354A009D5192 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5AAB5C2215354A009D5192 /* QuestionViewController.swift */; };
+		2DB9483922160653004F4E59 /* AnswerOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB9483822160653004F4E59 /* AnswerOptionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		2D310F68220EAAED00FA4109 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D310F6A220EAAED00FA4109 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D5AAB5C2215354A009D5192 /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
+		2DB9483822160653004F4E59 /* AnswerOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerOptionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				2D310F62220EAAEC00FA4109 /* Main.storyboard */,
 				2D1B13D92210FEDE005EA547 /* QuizCell.swift */,
 				2D5AAB5C2215354A009D5192 /* QuestionViewController.swift */,
+				2DB9483822160653004F4E59 /* AnswerOptionCell.swift */,
 				2D310F65220EAAED00FA4109 /* Assets.xcassets */,
 				2D310F67220EAAED00FA4109 /* LaunchScreen.storyboard */,
 				2D310F6A220EAAED00FA4109 /* Info.plist */,
@@ -144,6 +147,7 @@
 				2D1B13DA2210FEDE005EA547 /* QuizCell.swift in Sources */,
 				2D310F61220EAAEC00FA4109 /* ViewController.swift in Sources */,
 				2D5AAB5D2215354A009D5192 /* QuestionViewController.swift in Sources */,
+				2DB9483922160653004F4E59 /* AnswerOptionCell.swift in Sources */,
 				2D310F5F220EAAEC00FA4109 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
