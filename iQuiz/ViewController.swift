@@ -8,12 +8,12 @@
 
 import UIKit
 
-struct Quiz {
-    var title: String
-    var image: UIImage
-    var desc: String
-    var questions: [Question]
-}
+//struct Quiz {
+//    var title: String
+//    var image: UIImage
+//    var desc: String
+//    var questions: [Question]
+//}
 
 struct Question {
     var text: String
