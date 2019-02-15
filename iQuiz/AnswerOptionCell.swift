@@ -21,8 +21,34 @@ class AnswerOptionCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        if(self.isSelected){
+            self.container.layer.borderWidth = 1.0
+            self.container.layer.borderColor = UIColor.orange.cgColor
+            self.optionText.textColor = UIColor.orange
+        }
+        
+//        willSet{
+//            super.isSelected = newValue
+//            if newValue
+//            {
+//                self.layer.borderWidth = 1.0
+//                self.layer.borderColor = UIColor.orange.cgColor
+//                self.userID.textColor = UIColor.orange
+//                self.user.textColor = UIColor.orange
+//            }
+//            else
+//            {
+//                self.layer.borderWidth = 0.0
+//                self.layer.cornerRadius = 0.0
+//                self.userID.textColor = UIColor(red:0.29, green:0.56, blue:0.74, alpha:1.0)
+//                self.user.textColor = UIColor(red:0.29, green:0.56, blue:0.74, alpha:1.0)
+//                self.layer.cornerRadius = 20
+//            }
+    //        }
         
         // Configure the view for the selected state
+        
+        
     }
     
 //    required init?(coder aDecoder: NSCoder) {

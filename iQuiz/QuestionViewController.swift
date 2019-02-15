@@ -28,6 +28,7 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
         questionOptions.tableFooterView = UIView(frame: .zero)
         questionOptions.estimatedRowHeight = 200
         questionOptions.rowHeight = UITableView.automaticDimension
+        questionOptions.separatorStyle = UITableViewCell.SeparatorStyle.none
         // Do any additional setup after loading the view.
     }
     
@@ -40,12 +41,13 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "questionOptions", for: indexPath) as! AnswerOptionCell
         cell.optionText?.text = questions[index].answers[indexPath.row]
         cell.optionText?.textAlignment = .center
-//        cell.container.layer.cornerRadius = 20
-//        cell.container.layer.masksToBounds = false
-//         cell.container.layer.shadowColor = UIColor.black.cgColor
-//         cell.container.layer.shadowOffset = CGSize(width: 2, height: 4)
-//         cell.container.layer.shadowOpacity = 0.2
-//         cell.container.layer.shadowRadius = 10
+        cell.layer.masksToBounds = false
+        cell.container.layer.cornerRadius = 20
+        cell.container.layer.masksToBounds = false
+        cell.container.layer.shadowColor = UIColor.black.cgColor
+        cell.container.layer.shadowOffset = CGSize(width: 2, height: 4)
+        cell.container.layer.shadowOpacity = 0.2
+        cell.container.layer.shadowRadius = 10
         return cell
     }
     
