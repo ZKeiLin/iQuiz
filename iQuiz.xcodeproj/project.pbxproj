@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D1B13DA2210FEDE005EA547 /* QuizCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1B13D92210FEDE005EA547 /* QuizCell.swift */; };
+		2D203CDC221919D0004F4360 /* QuizDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D203CDB221919D0004F4360 /* QuizDataSource.swift */; };
 		2D2135872216545900F172BF /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2135862216545900F172BF /* Quiz.swift */; };
 		2D310F5F220EAAEC00FA4109 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D310F5E220EAAEC00FA4109 /* AppDelegate.swift */; };
 		2D310F61220EAAEC00FA4109 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D310F60220EAAEC00FA4109 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		2D1B13D92210FEDE005EA547 /* QuizCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizCell.swift; sourceTree = "<group>"; };
+		2D203CDB221919D0004F4360 /* QuizDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizDataSource.swift; sourceTree = "<group>"; };
 		2D2135862216545900F172BF /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		2D310F5B220EAAEC00FA4109 /* iQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D310F5E220EAAEC00FA4109 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				2D2135862216545900F172BF /* Quiz.swift */,
+				2D203CDB221919D0004F4360 /* QuizDataSource.swift */,
 				2D310F5E220EAAEC00FA4109 /* AppDelegate.swift */,
 				2D310F60220EAAEC00FA4109 /* ViewController.swift */,
 				2D310F62220EAAEC00FA4109 /* Main.storyboard */,
@@ -147,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D203CDC221919D0004F4360 /* QuizDataSource.swift in Sources */,
 				2D1B13DA2210FEDE005EA547 /* QuizCell.swift in Sources */,
 				2D310F61220EAAEC00FA4109 /* ViewController.swift in Sources */,
 				2D2135872216545900F172BF /* Quiz.swift in Sources */,

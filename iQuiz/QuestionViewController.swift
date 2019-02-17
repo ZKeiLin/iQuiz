@@ -10,6 +10,7 @@ import UIKit
 
 class QuestionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var overallContainer: UIStackView!
     @IBOutlet weak var questionNumber: UILabel!
     @IBOutlet weak var questionText: UILabel!
     @IBOutlet weak var questionOptions: UITableView!
@@ -21,6 +22,7 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overallContainer.layer.masksToBounds = false
         questionOptions.dataSource = self
         questionOptions.delegate = self
         questionText.text = questions[index].text
