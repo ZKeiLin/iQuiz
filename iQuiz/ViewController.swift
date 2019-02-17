@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as? QuestionViewController
-        vc?.questions = (dataSource?.data[indexPath.row].questions ?? nil)!
+        vc?.questions = (dataSource?.data[indexPath.row].questions ?? nil)! 
         self.navigationController?.pushViewController(vc!, animated: true)
     }
 }

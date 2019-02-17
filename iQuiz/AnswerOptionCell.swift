@@ -21,11 +21,11 @@ class AnswerOptionCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        if(self.isSelected){
-            self.container.layer.borderWidth = 1.0
-            self.container.layer.borderColor = UIColor.orange.cgColor
-            self.optionText.textColor = UIColor.orange
-        }
+//        if(self.isSelected){
+//            self.container.layer.borderWidth = 1.0
+//            self.container.layer.borderColor = UIColor.orange.cgColor
+//            self.optionText.textColor = UIColor.orange
+//        }
         
 //        willSet{
 //            super.isSelected = newValue

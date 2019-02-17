@@ -17,6 +17,7 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
     
     var questions : [Question] = []
     var index = 0
+    var selected : Int = -1
 //    var option : [String] = []
 //    var correctAnswer = -1
     
@@ -57,6 +58,30 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
     {
         return 60.0;//Choose your custom row height
     }
+    
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selected = indexPath.row
+    }
+    
+    @IBAction func submitAnswer(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "AnswerViewController") as? AnswerViewController
+        if (selected+1) == questions[index].answer {
+            vc?.indicatorText = "Correct!"
+        } else {
+            vc?.indicatorText = "Opps :("
+        }   
+        vc?.curQues = questions[index].text
+        vc?.answerText = questions[index].answers[questions[index].answer - 1]
+
+self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
+    
+    func updateQuestion(){
+        
+    }
+    
+    
     /*
     // MARK: - Navigation
 
