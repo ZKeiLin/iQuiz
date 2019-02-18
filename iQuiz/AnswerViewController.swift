@@ -13,6 +13,7 @@ class AnswerViewController: UIViewController {
     var indicatorText:String = ""
     var curQues: String = ""
     var answerText : String = ""
+    var buttonText : String = ""
     
     @IBOutlet weak var indicator: UILabel!
     @IBOutlet weak var question: UILabel!
@@ -24,5 +25,16 @@ class AnswerViewController: UIViewController {
         indicator.text = indicatorText
         question.text = curQues
         Answer.text = answerText
+        nextStep.setTitle(buttonText, for: .normal)
     }
+    
+    @IBAction func next(_ sender: Any) {
+        if buttonText == "Next"{
+            let vc = storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as? QuestionViewController
+            let cur = 1 + (vc?.index)!
+            vc?.index = cur
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
 }

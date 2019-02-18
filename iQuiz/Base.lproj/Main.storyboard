@@ -235,6 +235,7 @@
                                         <rect key="frame" x="19.5" y="212" width="32" height="30"/>
                                         <state key="normal" title="Next"/>
                                         <connections>
+                                            <action selector="next:" destination="5lo-rP-Okh" eventType="touchUpInside" id="jme-0G-hle"/>
                                             <action selector="submitAnswer:" destination="OFE-7b-pwL" eventType="touchUpInside" id="GDc-sB-giC"/>
                                         </connections>
                                     </button>

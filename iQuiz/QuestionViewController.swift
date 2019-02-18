@@ -16,33 +16,34 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var questionOptions: UITableView!
     
     var questions : [Question] = []
-    var index = 0
+    var index:Int = -1
     var selected : Int = -1
-//    var option : [String] = []
-//    var correctAnswer = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        overallContainer.layer.masksToBounds = false
+        updateQuestion()
         questionOptions.dataSource = self
         questionOptions.delegate = self
-        questionText.text = questions[index].text
-        questionNumber.text = "Question \(String(index + 1))"   
+        
+        // container style
+        overallContainer.layer.masksToBounds = false
+      
+        // table style
         questionOptions.tableFooterView = UIView(frame: .zero)
         questionOptions.estimatedRowHeight = 200
         questionOptions.rowHeight = UITableView.automaticDimension
         questionOptions.separatorStyle = UITableViewCell.SeparatorStyle.none
-        // Do any additional setup after loading the view.
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return questions[index].answers.count
     }
     
-//    @IBOutlet weak var optionCell: NSLayoutConstraint!
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "questionOptions", for: indexPath) as! AnswerOptionCell
         cell.optionText?.text = questions[index].answers[indexPath.row]
+        
+        // Style
         cell.optionText?.textAlignment = .center
         cell.layer.masksToBounds = false
         cell.container.layer.cornerRadius = 20
@@ -56,7 +57,7 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 60.0;//Choose your custom row height
+        return 60.0;
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -69,27 +70,25 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
             vc?.indicatorText = "Correct!"
         } else {
             vc?.indicatorText = "Opps :("
-        }   
+        }
         vc?.curQues = questions[index].text
         vc?.answerText = questions[index].answers[questions[index].answer - 1]
-
-self.navigationController?.pushViewController(vc!, animated: true)
+        if index + 1 < questions.count{
+            vc?.buttonText = "Next"
+            updateQuestion()
+        } else {
+            vc?.buttonText = "Finished"
+        }
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
     
     func updateQuestion(){
-        
+        self.index = self.index + 1
+        questionText.text = questions[index].text
+        questionNumber.text = "Question \(String(index + 1))"
+        self.questionOptions.reloadData()
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
