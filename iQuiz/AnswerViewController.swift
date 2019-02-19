@@ -14,6 +14,8 @@ class AnswerViewController: UIViewController {
     var curQues: String = ""
     var answerText : String = ""
     var buttonText : String = ""
+    var score : Int = 0
+    var totalScore : Int = 0
     
     @IBOutlet weak var indicator: UILabel!
     @IBOutlet weak var question: UILabel!
@@ -26,6 +28,8 @@ class AnswerViewController: UIViewController {
         question.text = curQues
         Answer.text = answerText
         nextStep.setTitle(buttonText, for: .normal)
+        navigationItem.hidesBackButton = true
+
     }
     
     @IBAction func next(_ sender: Any) {
@@ -34,6 +38,10 @@ class AnswerViewController: UIViewController {
             let cur = 1 + (vc?.index)!
             vc?.index = cur
             self.navigationController?.popViewController(animated: true)
+        } else {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "finishedview") as? FinishedViewController
+            vc?.score = self.score
+            vc?.totalScore = self.totalScore;     self.navigationController?.pushViewController(vc!, animated: true)
         }
     }
     

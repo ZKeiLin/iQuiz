@@ -18,6 +18,7 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
     var questions : [Question] = []
     var index:Int = -1
     var selected : Int = -1
+    var score : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,22 +63,29 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selected = indexPath.row
+        print("selected: \(selected)")
     }
     
     @IBAction func submitAnswer(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AnswerViewController") as? AnswerViewController
         if (selected+1) == questions[index].answer {
+            score = score + 1
+            print("correct: \(score)")
             vc?.indicatorText = "Correct!"
         } else {
             vc?.indicatorText = "Opps :("
         }
         vc?.curQues = questions[index].text
         vc?.answerText = questions[index].answers[questions[index].answer - 1]
+        vc?.score = self.score
+        print("curent score: \(score)")
+        vc?.totalScore = self.questions.count
         if index + 1 < questions.count{
             vc?.buttonText = "Next"
             updateQuestion()
         } else {
             vc?.buttonText = "Finished"
+            print("final: \(score)")
         }
         self.navigationController?.pushViewController(vc!, animated: true)
     }

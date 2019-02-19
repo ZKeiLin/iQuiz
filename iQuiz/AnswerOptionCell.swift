@@ -51,18 +51,12 @@ class AnswerOptionCell: UITableViewCell {
         
     }
     
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//        setup()
-//    }
-//    
-//    private func setup() {
-//        container.layer.cornerRadius = 20
-//        container.layer.masksToBounds = false
-//        container.layer.shadowColor = UIColor.black.cgColor
-//        container.layer.shadowOffset = CGSize(width: 2, height: 4)
-//        container.layer.shadowOpacity = 0.2
-//        container.layer.shadowRadius = 10
-//    }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    private func setup() {
+    }
 
 }

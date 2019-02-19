@@ -23,6 +23,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.hidesBackButton = true
         quizes = quizRepo.getQuiz()
         dataSource = QuizDataSource(quizes)
         

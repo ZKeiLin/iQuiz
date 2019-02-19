@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D12ECA4221B8F5200A8B1C2 /* FinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D12ECA3221B8F5200A8B1C2 /* FinishedViewController.swift */; };
 		2D1B13DA2210FEDE005EA547 /* QuizCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1B13D92210FEDE005EA547 /* QuizCell.swift */; };
 		2D203CDC221919D0004F4360 /* QuizDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D203CDB221919D0004F4360 /* QuizDataSource.swift */; };
 		2D2135872216545900F172BF /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2135862216545900F172BF /* Quiz.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D12ECA3221B8F5200A8B1C2 /* FinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedViewController.swift; sourceTree = "<group>"; };
 		2D1B13D92210FEDE005EA547 /* QuizCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizCell.swift; sourceTree = "<group>"; };
 		2D203CDB221919D0004F4360 /* QuizDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizDataSource.swift; sourceTree = "<group>"; };
 		2D2135862216545900F172BF /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				2D310F62220EAAEC00FA4109 /* Main.storyboard */,
 				2D5AAB5C2215354A009D5192 /* QuestionViewController.swift */,
 				2DAF8B38221A103A00FCE1E4 /* AnswerViewController.swift */,
+				2D12ECA3221B8F5200A8B1C2 /* FinishedViewController.swift */,
 				2DB9483822160653004F4E59 /* AnswerOptionCell.swift */,
 				2D310F65220EAAED00FA4109 /* Assets.xcassets */,
 				2D310F67220EAAED00FA4109 /* LaunchScreen.storyboard */,
@@ -160,6 +163,7 @@
 				2D1B13DA2210FEDE005EA547 /* QuizCell.swift in Sources */,
 				2D310F61220EAAEC00FA4109 /* ViewController.swift in Sources */,
 				2DAF8B39221A103A00FCE1E4 /* AnswerViewController.swift in Sources */,
+				2D12ECA4221B8F5200A8B1C2 /* FinishedViewController.swift in Sources */,
 				2D8172E22219366600236B4C /* Questiion.swift in Sources */,
 				2D2135872216545900F172BF /* Quiz.swift in Sources */,
 				2D5AAB5D2215354A009D5192 /* QuestionViewController.swift in Sources */,
