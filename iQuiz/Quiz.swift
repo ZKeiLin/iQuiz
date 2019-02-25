@@ -6,6 +6,7 @@
 //  Copyright © 2019 Zhiqi Lin. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class Quiz {
@@ -13,6 +14,53 @@ class Quiz {
     var image: UIImage
     var desc: String
     var questions: [Question]
+    enum SerializationError:Error {
+        case missing(String)
+        case invalid(String, Any)
+    }
+    
+    
+        // access individual object in array
+    
+//    init(json: [String:Any]) throws{
+//        guard let title = json["title"] as? String else {
+//            throw SerializationError.missing("Title is missing")
+//        }
+//        guard let desc = json["desc"] as? String else {
+//            throw SerializationError.missing("Desc is missing")
+//        }
+//        guard let questions = json["questions"] as? Any else {
+//            throw SerializationError.missing("questions is missing")
+//        }
+    
+//        var questionObject : [Question] = []
+//        guard let question = questions.
+//
+    //        self.title = title
+    //        self.image = (UIImage(named:"marvel") ?? nil)!
+    //        self.desc = desc
+    //        self.questions = [
+    //            Question(
+    //            text: "Who is Iron Man?",
+    //            answer: 1,
+    //            answers: [
+    //            "Tony Stark",
+    //            "Obadiah Stane",
+    //            "A rock hit by Megadeth",
+    //            "Nobody knows"
+    //            ]),
+    //            Question(
+    //            text: "Who founded the X-Men?",
+    //            answer: 2,
+    //            answers: [
+    //            "Tony Stark",
+    //            "Professor X",
+    //            "The X-Institute",
+    //            "Erik Lensherr"
+    //            ])]
+    //    }
+    
+    
     
     init(title: String, image: UIImage, desc: String, questions:[Question]) {
         self.title = title
@@ -21,6 +69,9 @@ class Quiz {
         self.questions = questions
     }
 }
+
+
+
 
 protocol QuizRepository {
     func getQuiz() -> [Quiz]
