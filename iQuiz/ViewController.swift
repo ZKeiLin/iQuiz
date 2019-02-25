@@ -29,11 +29,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         quizTable.tableFooterView = UIView(frame: .zero)
         quizTable.estimatedRowHeight = 200
         quizTable.rowHeight = UITableView.automaticDimension
-    }
+    }   
     
     fileprivate func fetchJSON(){
         let urlString = "http://tednewardsandbox.site44.com/questions.json"
-        let fileUrl = Bundle.main.path(forResource: "quizes", ofType: "json")
+        if let fileUrl = Bundle.main.path(forResource: "quizes", ofType: "json"){
+            do {
+                let localData = try Data(contentsOf: URL(fileURLWithPath: fileUrl), options: .mappedIfSafe)
+                Decoder(localData)
+            }catch{
+                print("Can't get access to local Data")
+            }
+        } 
         guard let url = URL(string: urlString) else { return}
         let task = URLSession.shared.dataTask(with: url){ (data, response, err) in
             DispatchQueue.main.async {
@@ -43,17 +50,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     print("Fail to get data from the url", err)
                     return
                 }
-                guard let data = data else { return }
-                do {
-                    let decoder = JSONDecoder()
-                    self.data = try decoder.decode([Quiz].self, from: data)
-                    self.quizTable.reloadData()
-                } catch let parsingError {
-                    self.data = self.quizRepo.getQuiz()
-                    print("Error", parsingError)
-                }
+                guard let onlineData = data else { return }
+                self.Decoder(onlineData)
             }}
-        task.resume()
+            task.resume()
+    }
+    
+    func Decoder (_ data: Data){
+        do {
+            let decoder = JSONDecoder()
+            self.data = try decoder.decode([Quiz].self, from: data)
+            self.quizTable.reloadData()
+        } catch let parsingError {
+            print("Error", parsingError)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
