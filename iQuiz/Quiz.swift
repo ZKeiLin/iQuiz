@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-class Quiz {
+class Quiz : Codable{
     var title: String
-    var image: UIImage
+//    var image: UIImage
     var desc: String
     var questions: [Question]
     enum SerializationError:Error {
@@ -64,7 +64,7 @@ class Quiz {
     
     init(title: String, image: UIImage, desc: String, questions:[Question]) {
         self.title = title
-        self.image = image
+//        self.image = image
         self.desc = desc
         self.questions = questions
     }
@@ -99,7 +99,7 @@ class TestingQuizRepository : QuizRepository {
             questions:[
                 Question(
                     text: "Who is Iron Man?",
-                    answer: 1,
+                    answer: "1",
                     answers: [
                         "Tony Stark",
                         "Obadiah Stane",
@@ -108,7 +108,7 @@ class TestingQuizRepository : QuizRepository {
                     ]),
                 Question(
                     text: "Who founded the X-Men?",
-                    answer: 2,
+                    answer: "2",
                     answers: [
                         "Tony Stark",
                         "Professor X",
@@ -122,7 +122,7 @@ class TestingQuizRepository : QuizRepository {
             questions:[
                 Question(
                     text: "What is fire?",
-                    answer: 1,
+                    answer: "1",
                     answers: [
                         "One of the four classical elements",
                         "A magical reaction given to us by God",

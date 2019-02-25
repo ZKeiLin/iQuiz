@@ -68,7 +68,7 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func submitAnswer(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AnswerViewController") as? AnswerViewController
-        if (selected+1) == questions[index].answer {
+        if (selected+1) == Int(questions[index].answer) {
             score = score + 1
             print("correct: \(score)")
             vc?.indicatorText = "Correct!"
@@ -76,7 +76,7 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
             vc?.indicatorText = "Opps :("
         }
         vc?.curQues = questions[index].text
-        vc?.answerText = questions[index].answers[questions[index].answer - 1]
+        vc?.answerText = questions[index].answers[Int(questions[index].answer)! - 1]
         vc?.score = self.score
         print("curent score: \(score)")
         vc?.totalScore = self.questions.count
