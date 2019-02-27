@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7LY-PQ-3TO">
-                                <rect key="frame" x="0.0" y="75" width="320" height="394.5"/>
+                                <rect key="frame" x="0.0" y="31" width="320" height="394.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7LY-PQ-3TO" secondAttribute="height" multiplier="288:355" id="MlU-nc-Nfb"/>
@@ -91,7 +91,7 @@
                     <navigationItem key="navigationItem" title="iQuiz" id="EKR-Kf-eip">
                         <barButtonItem key="rightBarButtonItem" title="Setting" id="Avv-At-jrW">
                             <connections>
-                                <action selector="setting:" destination="48p-nU-Ra8" id="Kk9-Gw-s4f"/>
+                                <action selector="Setting:" destination="48p-nU-Ra8" id="OBL-hS-mLE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -214,16 +214,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYX-zY-sQL">
-                                <rect key="frame" x="144" y="364" width="32" height="30"/>
-                                <state key="normal" title="Next"/>
-                                <connections>
-                                    <action selector="next:" destination="5lo-rP-Okh" eventType="touchUpInside" id="jme-0G-hle"/>
-                                    <action selector="submitAnswer:" destination="OFE-7b-pwL" eventType="touchUpInside" id="GDc-sB-giC"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="1mV-9s-r48">
-                                <rect key="frame" x="90.5" y="161" width="139" height="133"/>
+                                <rect key="frame" x="90.5" y="157.5" width="139" height="185"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyv-f4-TtA">
                                         <rect key="frame" x="0.0" y="0.0" width="139" height="48"/>
@@ -243,14 +235,20 @@
                                         <color key="textColor" red="0.29411764709999999" green="0.56470588239999997" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYX-zY-sQL">
+                                        <rect key="frame" x="53.5" y="155" width="32" height="30"/>
+                                        <state key="normal" title="Next"/>
+                                        <connections>
+                                            <action selector="next:" destination="5lo-rP-Okh" eventType="touchUpInside" id="jme-0G-hle"/>
+                                            <action selector="submitAnswer:" destination="OFE-7b-pwL" eventType="touchUpInside" id="GDc-sB-giC"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="QMh-n7-pwr" firstAttribute="bottom" secondItem="UYX-zY-sQL" secondAttribute="bottom" constant="86" id="8hf-kf-HFi"/>
-                            <constraint firstItem="1mV-9s-r48" firstAttribute="top" secondItem="QMh-n7-pwr" secondAttribute="top" constant="141" id="YSt-5i-Cgz"/>
-                            <constraint firstItem="UYX-zY-sQL" firstAttribute="centerX" secondItem="QMh-n7-pwr" secondAttribute="centerX" id="bPd-mu-rSU"/>
+                            <constraint firstItem="1mV-9s-r48" firstAttribute="centerY" secondItem="QMh-n7-pwr" secondAttribute="centerY" id="RFy-r7-mn5"/>
                             <constraint firstItem="1mV-9s-r48" firstAttribute="centerX" secondItem="QMh-n7-pwr" secondAttribute="centerX" id="fbG-Ge-oN6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QMh-n7-pwr"/>
@@ -275,7 +273,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="4Dw-fC-bCW">
-                                <rect key="frame" x="83" y="108" width="154" height="103.5"/>
+                                <rect key="frame" x="83" y="173" width="154" height="154.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can be better!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyd-hm-bg8">
                                         <rect key="frame" x="0.0" y="0.0" width="154" height="27.5"/>
@@ -289,24 +287,23 @@
                                         <color key="textColor" red="0.29411764709999999" green="0.56470588239999997" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TaA-TS-xJj">
+                                        <rect key="frame" x="61" y="124.5" width="32" height="30"/>
+                                        <state key="normal" title="Next"/>
+                                        <connections>
+                                            <action selector="next:" destination="5lo-rP-Okh" eventType="touchUpInside" id="ltw-2G-isv"/>
+                                            <action selector="submitAnswer:" destination="OFE-7b-pwL" eventType="touchUpInside" id="ajb-rC-ADH"/>
+                                            <segue destination="48p-nU-Ra8" kind="show" id="673-xc-5Ks"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TaA-TS-xJj">
-                                <rect key="frame" x="144" y="375" width="32" height="30"/>
-                                <state key="normal" title="Next"/>
-                                <connections>
-                                    <action selector="next:" destination="5lo-rP-Okh" eventType="touchUpInside" id="ltw-2G-isv"/>
-                                    <action selector="submitAnswer:" destination="OFE-7b-pwL" eventType="touchUpInside" id="ajb-rC-ADH"/>
-                                    <segue destination="48p-nU-Ra8" kind="show" id="673-xc-5Ks"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="TaA-TS-xJj" firstAttribute="centerX" secondItem="aTO-97-h9g" secondAttribute="centerX" id="40p-J5-q88"/>
+                            <constraint firstItem="4Dw-fC-bCW" firstAttribute="centerX" secondItem="aTO-97-h9g" secondAttribute="centerX" id="8Iu-SA-VPX"/>
                             <constraint firstItem="4Dw-fC-bCW" firstAttribute="centerX" secondItem="Qe2-eW-pD5" secondAttribute="centerX" id="HdV-Vf-iqd"/>
-                            <constraint firstItem="aTO-97-h9g" firstAttribute="bottom" secondItem="TaA-TS-xJj" secondAttribute="bottom" constant="75" id="dAF-9k-yWx"/>
-                            <constraint firstItem="4Dw-fC-bCW" firstAttribute="top" secondItem="aTO-97-h9g" secondAttribute="top" constant="88" id="vFV-yr-HhL" userLabel="Stack View.top = Safe Area.top + 141"/>
+                            <constraint firstItem="4Dw-fC-bCW" firstAttribute="centerY" secondItem="aTO-97-h9g" secondAttribute="centerY" id="MMY-uu-eRN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aTO-97-h9g"/>
                     </view>
@@ -325,7 +322,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gdH-D1-hOc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JUS-HO-l6k">
-                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -339,6 +336,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3cQ-8K-S96"/>
+        <segue reference="673-xc-5Ks"/>
     </inferredMetricsTieBreakers>
 </document>

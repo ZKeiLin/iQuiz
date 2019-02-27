@@ -23,7 +23,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchJSON()
+        fetchJSON(self.sourceURL)
+//        ParseData(curdata)
         navigationItem.hidesBackButton = true
         quizTable.dataSource = self
         quizTable.delegate = self
@@ -32,7 +33,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         quizTable.rowHeight = UITableView.automaticDimension
     }
     
-    @IBAction func setting(_ sender: Any) {
+    @IBAction func Setting(_ sender: Any) {
         let alertController = UIAlertController(title: "Setting", message:
             "Input your own source url", preferredStyle: UIAlertController.Style.alert)
         alertController.addTextField(configurationHandler: {textField in
@@ -43,50 +44,71 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         alertController.addAction(UIAlertAction(title: "Check Now", style: UIAlertAction.Style.default,handler: {(_) in
             let input = (alertController.textFields![0] as UITextField).text!
             if let url = URL(string: input), UIApplication.shared.canOpenURL(url) {
-                self.sourceURL = url
-                self.fetchJSON()
-                print(self.sourceURL)
+                self.fetchJSON(url)
+            } else {
+                let alert = UIAlertController(title: "Oh no!", message: "The Download Fail!", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Okay...", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+//                self.UseLocalData()
             }
         }))
         self.present(alertController, animated: true, completion: nil)
     }
     
-//    func storeJson(_ object){
-//        localStorage.setItem(object, JSON.stringify(object));
+
+    
+//    func UseLocalData() {
+//        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+//        let filePath = documentsURL.appendingPathComponent("quizes.json").path
+//
+//        if let fileUrl = Bundle.main.path(forAuxiliaryExecutable: filePath){
+//            do {
+//                let localData = try Data(contentsOf: URL(fileURLWithPath: fileUrl), options: .mappedIfSafe)
+//                self.ParseData(localData)
+//                print("noooooooooo")
+//            }catch{
+//                print("Can't get access to local Data")
+//            }
+//        }
 //    }
 //
     
-    
-    fileprivate func fetchJSON(){
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let filePath = documentsURL.appendingPathComponent("quizes.json").path
-        
-        if let fileUrl = Bundle.main.path(forAuxiliaryExecutable: filePath){
-            do {
-                let localData = try Data(contentsOf: URL(fileURLWithPath: fileUrl), options: .mappedIfSafe)
-                Decoder(localData)
-            }catch{
-                print("Can't get access to local Data")
-            }
-        } 
+    fileprivate func fetchJSON(_ url: URL){
+//        var dataCollected : Data ? nil
+//        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+//        let filePath = documentsURL.appendingPathComponent("quizes.json").path
+//
+//        if let fileUrl = Bundle.main.path(forAuxiliaryExecutable: filePath){
+//            do {
+//                let localData = try Data(contentsOf: URL(fileURLWithPath: fileUrl), options: .mappedIfSafe)
+//                Decoder(localData)
+//            }catch{
+//                print("Can't get access to local Data")
+//            }
+//        }
 //        guard let url = URL(string: urlString) else { return}
         
-        let task = URLSession.shared.dataTask(with: self.sourceURL){ (data, response, err) in
+        let task = URLSession.shared.dataTask(with: url){ (data, response, err) in
             DispatchQueue.main.async {
                 if let err = err {
+//                    self.UseLocalData()
 //                    self.data = self.quizRepo.getQuiz()
 //                    self.quizTable.reloadData()
                     print("Fail to get data from the url", err)
                     return
                 }
                 guard let onlineData = data else { return }
-                self.dowloadData(data: onlineData)
-                self.Decoder(onlineData)
+                self.DowloadData(onlineData)
+//                dataCollected = onlineData
+                print("fetttch!")
+                self.ParseData(onlineData)
+                self.quizTable.reloadData()
             }}
             task.resume()
+//        return dataCollected
     }
     
-    func dowloadData(data: Data) {
+    func DowloadData(_ data: Data) {
         do {
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let fileURL = documentsURL.appendingPathComponent("quizes.json")
@@ -95,7 +117,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         } catch { }
     }
     
-    func Decoder (_ data: Data){
+    func ParseData (_ data: Data){
         do {
             let decoder = JSONDecoder()
             self.data = try decoder.decode([Quiz].self, from: data)
