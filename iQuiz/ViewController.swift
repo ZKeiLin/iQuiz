@@ -27,8 +27,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var quizTable: UITableView!
 
     var data : [Quiz] = []
-    var sourceURL : String = UserDefaults.standard.string(forKey: "url") ?? "http://tednewardsandbox.site44.com/questions.json"
     var defaults = UserDefaults.standard
+    var sourceURL : String = UserDefaults.standard.string(forKey: "url") ?? "http://tednewardsandbox.site44.com/questions.json"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +51,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // Test Network
     override func viewDidAppear(_ animated: Bool) {
-        if(Reachability.isConnectedToNetwork() && self.data.count == 0){
-            fetchJSON(self.sourceURL)
+        if(Reachability.isConnectedToNetwork()){
+            if self.data.count == 0 {
+                fetchJSON(self.sourceURL)
+            }
         }else{
             let alert = UIAlertController(title: "Oh no!", message: "no internet", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Okay...", style: UIAlertAction.Style.default, handler: nil))
@@ -88,21 +90,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func UseLocalData() {
-        
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let filePath = documentsURL.appendingPathComponent("quizes.json").path
-        if let fileUrl = Bundle.main.path(forAuxiliaryExecutable: filePath){
-            do {
-                let localData = try Data(contentsOf: URL(fileURLWithPath: fileUrl), options: .mappedIfSafe)
-                self.ParseData(localData)
-                self.quizTable.reloadData()
-            }catch{
-                print("Can't get access to local Data")
-            }
-        }
-    }
-    
     fileprivate func fetchJSON(_ urlString: String){
         let url = URL(string: urlString)!
         let task = URLSession.shared.dataTask(with: url){ (data, response, err) in
@@ -117,15 +104,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.quizTable.reloadData()
             }}
             task.resume()
-    }
-    
-    func DowloadData(_ data: Data) {
-        
-        do {
-            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            let fileURL = documentsURL.appendingPathComponent("quizes.json")
-            try data.write(to: fileURL, options: .atomic)
-        } catch { }
     }
     
     func ParseData (_ data: Data){
