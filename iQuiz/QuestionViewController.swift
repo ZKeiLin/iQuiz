@@ -39,7 +39,7 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return questions[index].answers.count
     }
-    
+        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "questionOptions", for: indexPath) as! AnswerOptionCell
         cell.optionText?.text = questions[index].answers[indexPath.row]
@@ -70,7 +70,6 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
         let vc = storyboard?.instantiateViewController(withIdentifier: "AnswerViewController") as? AnswerViewController
         if (selected+1) == Int(questions[index].answer) {
             score = score + 1
-            print("correct: \(score)")
             vc?.indicatorText = "Correct!"
         } else {
             vc?.indicatorText = "Opps :("
@@ -78,14 +77,12 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
         vc?.curQues = questions[index].text
         vc?.answerText = questions[index].answers[Int(questions[index].answer)! - 1]
         vc?.score = self.score
-        print("curent score: \(score)")
         vc?.totalScore = self.questions.count
         if index + 1 < questions.count{
             vc?.buttonText = "Next"
             updateQuestion()
         } else {
             vc?.buttonText = "Finished"
-            print("final: \(score)")
         }
         self.navigationController?.pushViewController(vc!, animated: true)
     }

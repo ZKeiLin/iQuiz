@@ -16,15 +16,18 @@ struct Question: Codable {
     var answers : [String]
 }
 
-
+struct Quiz : Codable{
+    var title: String
+    var desc: String
+    var questions: [Question]
+}
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var quizTable: UITableView!
 
     var data : [Quiz] = []
-    var sourceURL : URL = URL(string: "http://tednewardsandbox.site44.com/questions.json")!
-
+    var sourceURL : URL = URL(string: "http://tednewardsandbox.site44.com/questions.json")! 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,9 +81,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.present(alertController, animated: true, completion: nil)
     }
     
-    
-
-    
     func UseLocalData() {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let filePath = documentsURL.appendingPathComponent("quizes.json").path
@@ -94,7 +94,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
-
     
     fileprivate func fetchJSON(_ url: URL){
         let task = URLSession.shared.dataTask(with: url){ (data, response, err) in
@@ -107,7 +106,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
                 guard let onlineData = data else { return }
                 self.DowloadData(onlineData)
-                print("fetttch!")
                 self.ParseData(onlineData)
                 self.quizTable.reloadData()
             }}
@@ -145,7 +143,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("table: \(self.data)")
         let vc = storyboard?.instantiateViewController(withIdentifier: "QuestionViewController") as? QuestionViewController
         vc?.questions = (data[indexPath.row].questions ?? nil)!
         self.navigationController?.pushViewController(vc!, animated: true)
