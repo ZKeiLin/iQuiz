@@ -17,8 +17,9 @@ struct Question: Codable {
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var quizTable: UITableView!
-    var quizRepo : QuizRepository = (UIApplication.shared.delegate as! AppDelegate).quizRepository
+//    var quizRepo : QuizRepository = (UIApplication.shared.delegate as! AppDelegate).quizRepository
     var data : [Quiz] = []
+    var sourceURL : URL = URL(string: "http://tednewardsandbox.site44.com/questions.json")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +30,38 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         quizTable.tableFooterView = UIView(frame: .zero)
         quizTable.estimatedRowHeight = 200
         quizTable.rowHeight = UITableView.automaticDimension
-    }   
+    }
+    
+    @IBAction func setting(_ sender: Any) {
+        let alertController = UIAlertController(title: "Setting", message:
+            "Input your own source url", preferredStyle: UIAlertController.Style.alert)
+        alertController.addTextField(configurationHandler: {textField in
+            textField.placeholder = "Input your own source url"
+    })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default,handler: nil))
+        
+        alertController.addAction(UIAlertAction(title: "Check Now", style: UIAlertAction.Style.default,handler: {(_) in
+            let input = (alertController.textFields![0] as UITextField).text!
+            if let url = URL(string: input), UIApplication.shared.canOpenURL(url) {
+                self.sourceURL = url
+                self.fetchJSON()
+                print(self.sourceURL)
+            }
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+//    func storeJson(_ object){
+//        localStorage.setItem(object, JSON.stringify(object));
+//    }
+//
+    
     
     fileprivate func fetchJSON(){
-        let urlString = "http://tednewardsandbox.site44.com/questions.json"
-        if let fileUrl = Bundle.main.path(forResource: "quizes", ofType: "json"){
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let filePath = documentsURL.appendingPathComponent("quizes.json").path
+        
+        if let fileUrl = Bundle.main.path(forAuxiliaryExecutable: filePath){
             do {
                 let localData = try Data(contentsOf: URL(fileURLWithPath: fileUrl), options: .mappedIfSafe)
                 Decoder(localData)
@@ -41,19 +69,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 print("Can't get access to local Data")
             }
         } 
-        guard let url = URL(string: urlString) else { return}
-        let task = URLSession.shared.dataTask(with: url){ (data, response, err) in
+//        guard let url = URL(string: urlString) else { return}
+        
+        let task = URLSession.shared.dataTask(with: self.sourceURL){ (data, response, err) in
             DispatchQueue.main.async {
                 if let err = err {
-                    self.data = self.quizRepo.getQuiz()
-                    self.quizTable.reloadData()
+//                    self.data = self.quizRepo.getQuiz()
+//                    self.quizTable.reloadData()
                     print("Fail to get data from the url", err)
                     return
                 }
                 guard let onlineData = data else { return }
+                self.dowloadData(data: onlineData)
                 self.Decoder(onlineData)
             }}
             task.resume()
+    }
+    
+    func dowloadData(data: Data) {
+        do {
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let fileURL = documentsURL.appendingPathComponent("quizes.json")
+            try data.write(to: fileURL, options: .atomic)
+            print("\(fileURL)!")
+        } catch { }
     }
     
     func Decoder (_ data: Data){
@@ -65,17 +104,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             print("Error", parsingError)
         }
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "quiz", for: indexPath) as! QuizCell
+//        cell.quizImage.image = UIImage(named: data[indexPath.row].title)
+
         //        cell.quizImage.image = data[indexPath.row].image
         cell.title.text = data[indexPath.row].title
         cell.desc.text = data[indexPath.row].desc
-        
+        cell.quizImage.image = UIImage(named: data[indexPath.row].title)
         return cell
     }
     

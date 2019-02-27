@@ -20,7 +20,6 @@
 		2D8172E22219366600236B4C /* Questiion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8172E12219366600236B4C /* Questiion.swift */; };
 		2DAF8B39221A103A00FCE1E4 /* AnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAF8B38221A103A00FCE1E4 /* AnswerViewController.swift */; };
 		2DB9483922160653004F4E59 /* AnswerOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB9483822160653004F4E59 /* AnswerOptionCell.swift */; };
-		2DD326F92223A360004860C1 /* quizes.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DD326F82223A360004860C1 /* quizes.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +38,6 @@
 		2D8172E12219366600236B4C /* Questiion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Questiion.swift; sourceTree = "<group>"; };
 		2DAF8B38221A103A00FCE1E4 /* AnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewController.swift; sourceTree = "<group>"; };
 		2DB9483822160653004F4E59 /* AnswerOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerOptionCell.swift; sourceTree = "<group>"; };
-		2DD326F82223A360004860C1 /* quizes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = quizes.json; path = ../../../../../Desktop/quizes.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +81,6 @@
 				2DAF8B38221A103A00FCE1E4 /* AnswerViewController.swift */,
 				2D12ECA3221B8F5200A8B1C2 /* FinishedViewController.swift */,
 				2DB9483822160653004F4E59 /* AnswerOptionCell.swift */,
-				2DD326F82223A360004860C1 /* quizes.json */,
 				2D310F65220EAAED00FA4109 /* Assets.xcassets */,
 				2D310F67220EAAED00FA4109 /* LaunchScreen.storyboard */,
 				2D310F6A220EAAED00FA4109 /* Info.plist */,
@@ -149,7 +146,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DD326F92223A360004860C1 /* quizes.json in Resources */,
 				2D310F69220EAAED00FA4109 /* LaunchScreen.storyboard in Resources */,
 				2D310F66220EAAED00FA4109 /* Assets.xcassets in Resources */,
 				2D310F64220EAAEC00FA4109 /* Main.storyboard in Resources */,
