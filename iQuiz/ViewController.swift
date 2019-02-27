@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SystemConfiguration
+
 
 struct Question: Codable {
     var text: String
@@ -14,23 +16,45 @@ struct Question: Codable {
     var answers : [String]
 }
 
+
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var quizTable: UITableView!
-//    var quizRepo : QuizRepository = (UIApplication.shared.delegate as! AppDelegate).quizRepository
+
     var data : [Quiz] = []
     var sourceURL : URL = URL(string: "http://tednewardsandbox.site44.com/questions.json")!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchJSON(self.sourceURL)
-//        ParseData(curdata)
+        let sourceURL : URL = URL(string: "http://tednewardsandbox.site44.com/questions.json")!
+        fetchJSON(sourceURL)
         navigationItem.hidesBackButton = true
         quizTable.dataSource = self
         quizTable.delegate = self
         quizTable.tableFooterView = UIView(frame: .zero)
         quizTable.estimatedRowHeight = 200
         quizTable.rowHeight = UITableView.automaticDimension
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if(Reachability.isConnectedToNetwork()){
+            if(self.data.count == 0){
+                fetchJSON(self.sourceURL)
+            }
+        }else{
+            let alert = UIAlertController(title: "Oh no!", message: "no internet", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Okay...", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            print("no internet, grabbing from user default");
+            self.UseLocalData()
+            if(self.data.count == 0){
+                let alert = UIAlertController(title: "Oh no!", message: "connect the internet!", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Okay...", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func Setting(_ sender: Any) {
@@ -49,63 +73,45 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let alert = UIAlertController(title: "Oh no!", message: "The Download Fail!", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Okay...", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
-//                self.UseLocalData()
             }
         }))
         self.present(alertController, animated: true, completion: nil)
     }
     
+    
 
     
-//    func UseLocalData() {
-//        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-//        let filePath = documentsURL.appendingPathComponent("quizes.json").path
-//
-//        if let fileUrl = Bundle.main.path(forAuxiliaryExecutable: filePath){
-//            do {
-//                let localData = try Data(contentsOf: URL(fileURLWithPath: fileUrl), options: .mappedIfSafe)
-//                self.ParseData(localData)
-//                print("noooooooooo")
-//            }catch{
-//                print("Can't get access to local Data")
-//            }
-//        }
-//    }
-//
+    func UseLocalData() {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let filePath = documentsURL.appendingPathComponent("quizes.json").path
+        if let fileUrl = Bundle.main.path(forAuxiliaryExecutable: filePath){
+            do {
+                let localData = try Data(contentsOf: URL(fileURLWithPath: fileUrl), options: .mappedIfSafe)
+                self.ParseData(localData)
+                self.quizTable.reloadData()
+            }catch{
+                print("Can't get access to local Data")
+            }
+        }
+    }
+
     
     fileprivate func fetchJSON(_ url: URL){
-//        var dataCollected : Data ? nil
-//        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-//        let filePath = documentsURL.appendingPathComponent("quizes.json").path
-//
-//        if let fileUrl = Bundle.main.path(forAuxiliaryExecutable: filePath){
-//            do {
-//                let localData = try Data(contentsOf: URL(fileURLWithPath: fileUrl), options: .mappedIfSafe)
-//                Decoder(localData)
-//            }catch{
-//                print("Can't get access to local Data")
-//            }
-//        }
-//        guard let url = URL(string: urlString) else { return}
-        
         let task = URLSession.shared.dataTask(with: url){ (data, response, err) in
             DispatchQueue.main.async {
                 if let err = err {
-//                    self.UseLocalData()
-//                    self.data = self.quizRepo.getQuiz()
-//                    self.quizTable.reloadData()
+                    self.UseLocalData()
+
                     print("Fail to get data from the url", err)
                     return
                 }
                 guard let onlineData = data else { return }
                 self.DowloadData(onlineData)
-//                dataCollected = onlineData
                 print("fetttch!")
                 self.ParseData(onlineData)
                 self.quizTable.reloadData()
             }}
             task.resume()
-//        return dataCollected
     }
     
     func DowloadData(_ data: Data) {
@@ -113,7 +119,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let fileURL = documentsURL.appendingPathComponent("quizes.json")
             try data.write(to: fileURL, options: .atomic)
-            print("\(fileURL)!")
         } catch { }
     }
     
@@ -133,9 +138,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "quiz", for: indexPath) as! QuizCell
-//        cell.quizImage.image = UIImage(named: data[indexPath.row].title)
-
-        //        cell.quizImage.image = data[indexPath.row].image
         cell.title.text = data[indexPath.row].title
         cell.desc.text = data[indexPath.row].desc
         cell.quizImage.image = UIImage(named: data[indexPath.row].title)
