@@ -87,13 +87,10 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     
-    
     func updateQuestion(){
         self.index = self.index + 1
         questionText.text = questions[index].text
         questionNumber.text = "Question \(String(index + 1))"
         self.questionOptions.reloadData()
     }
-    
-
 }

@@ -27,32 +27,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var quizTable: UITableView!
 
     var data : [Quiz] = []
-    var sourceURL : URL = URL(string: "http://tednewardsandbox.site44.com/questions.json")! 
+    var sourceURL : String = UserDefaults.standard.string(forKey: "url") ?? "http://tednewardsandbox.site44.com/questions.json"
+    var defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let sourceURL : URL = URL(string: "http://tednewardsandbox.site44.com/questions.json")!
-        fetchJSON(sourceURL)
-        navigationItem.hidesBackButton = true
+        
+        if((defaults.object(forKey: "url")) != nil){
+            self.sourceURL = defaults.object(forKey: "url") as! String
+        }
+        
+        // DATA
+        fetchJSON(self.sourceURL)
         quizTable.dataSource = self
         quizTable.delegate = self
+        
+        // STYLE
+        navigationItem.hidesBackButton = true
         quizTable.tableFooterView = UIView(frame: .zero)
         quizTable.estimatedRowHeight = 200
         quizTable.rowHeight = UITableView.automaticDimension
     }
     
+    // Test Network
     override func viewDidAppear(_ animated: Bool) {
-        if(Reachability.isConnectedToNetwork()){
-            if(self.data.count == 0){
-                fetchJSON(self.sourceURL)
-            }
+        if(Reachability.isConnectedToNetwork() && self.data.count == 0){
+            fetchJSON(self.sourceURL)
         }else{
             let alert = UIAlertController(title: "Oh no!", message: "no internet", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Okay...", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             print("no internet, grabbing from user default");
-            self.UseLocalData()
-            if(self.data.count == 0){
+            
+            
+            if(defaults.string(forKey: "url") == nil){
                 let alert = UIAlertController(title: "Oh no!", message: "connect the internet!", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Okay...", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
@@ -65,23 +73,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             "Input your own source url", preferredStyle: UIAlertController.Style.alert)
         alertController.addTextField(configurationHandler: {textField in
             textField.placeholder = "Input your own source url"
-    })
+        })
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default,handler: nil))
-        
         alertController.addAction(UIAlertAction(title: "Check Now", style: UIAlertAction.Style.default,handler: {(_) in
-            let input = (alertController.textFields![0] as UITextField).text!
-            if let url = URL(string: input), UIApplication.shared.canOpenURL(url) {
-                self.fetchJSON(url)
-            } else {
-                let alert = UIAlertController(title: "Oh no!", message: "The Download Fail!", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Okay...", style: UIAlertAction.Style.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
+                let input = (alertController.textFields![0] as UITextField).text!
+                if let url = URL(string: input), UIApplication.shared.canOpenURL(url) {
+                    self.fetchJSON(input)
+                } else {
+                    let alert = UIAlertController(title: "Oh no!", message: "The Download Fail!", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Okay...", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
         }))
         self.present(alertController, animated: true, completion: nil)
     }
     
     func UseLocalData() {
+        
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let filePath = documentsURL.appendingPathComponent("quizes.json").path
         if let fileUrl = Bundle.main.path(forAuxiliaryExecutable: filePath){
@@ -95,17 +103,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    fileprivate func fetchJSON(_ url: URL){
+    fileprivate func fetchJSON(_ urlString: String){
+        let url = URL(string: urlString)!
         let task = URLSession.shared.dataTask(with: url){ (data, response, err) in
             DispatchQueue.main.async {
                 if let err = err {
-                    self.UseLocalData()
-
                     print("Fail to get data from the url", err)
                     return
                 }
                 guard let onlineData = data else { return }
-                self.DowloadData(onlineData)
+                self.defaults.set(urlString, forKey: "url")
                 self.ParseData(onlineData)
                 self.quizTable.reloadData()
             }}
@@ -113,6 +120,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func DowloadData(_ data: Data) {
+        
         do {
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let fileURL = documentsURL.appendingPathComponent("quizes.json")
